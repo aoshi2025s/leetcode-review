@@ -6,9 +6,7 @@
 
 N: numsの要素数
 - 時間計算量: $O(N^2)$
-- 空間計算量: $O(N)$
-
-計算量の見積もりの仕方はよくわかっていないです。numsの要素分のメモリが必要だと考えたので空間計算量はO(N)にしましたが、見積もるのは追加のメモリ、つまりansの要素数だけでいいのでしょうか？
+- 空間計算量: $O(1)$
 
 `nums.length()`と書いたらエラー出たので[参照先](https://en.cppreference.com/w/cpp/container/vector)で調べたら.size()が正しいとわかった。.length()が使えるのは`std::string`だった。
 
@@ -27,6 +25,33 @@ public:
             }
         }
         return ans;
+    }
+};
+```
+
+## 2nd
+
+ハッシュマップを使うことで2重ループせずに探索できる。
+
+最大でN-1個分の要素をハッシュマップに保存するので計算量は以下の通り
+
+N: numsの要素数
+- 時間計算量: $O(N)$
+- 空間計算量: $O(N)$
+
+```cpp
+class Solution {
+public:
+    vector<int> twoSum(vector<int>& nums, int target) {
+        unordered_map<int, int> mp;
+
+        for (int i = 0; i < nums.size(); i++) {
+            if (mp.count(target - nums[i]) > 0) {
+                return {mp[target - nums[i]], i};
+            }
+            mp[nums[i]] = i;
+        }
+        return {};
     }
 };
 ```
