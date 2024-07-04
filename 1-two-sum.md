@@ -55,3 +55,28 @@ public:
     }
 };
 ```
+
+## 3rd
+
+時間: 40s
+
+N: numsの要素数
+- 時間計算量: $O(N)$
+- 空間計算量: $O(N)$
+
+```cpp
+class Solution {
+public:
+    vector<int> twoSum(vector<int>& nums, int target) {
+        unordered_map<int, int> numsMap;
+
+        for(int i = 0; i < nums.size(); i++) {
+            if (numsMap.count(target - nums[i]) > 0) {
+                return {numsMap[target - nums[i]], i};
+            }
+            numsMap[nums[i]] = i;
+        }
+        return {};
+    }
+};
+```
