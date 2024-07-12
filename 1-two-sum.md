@@ -80,3 +80,34 @@ public:
     }
 };
 ```
+
+## 4rd
+
+時間: 1分30秒
+
+レビューを受けて、`unordered_map` のデータの変数名を修正しました。
+
+nums[i]をkey, iをvalueとして持つので、num_to_indexです
+
+for文を終えた後は要件を満たしていないnumsかtargetが渡されてきたことになるので、
+errorメッセージを出力して空配列を出力するようにしました。
+
+この問題からユースケースを思い浮かべることは難しかったです。
+
+```cpp
+class Solution {
+public:
+    vector<int> twoSum(vector<int>& nums, int target) {
+        unordered_map<int, int> num_to_index;
+
+        for(int i = 0; i < nums.size(); i++) {
+            if (num_to_index.contains(target - nums[i])) {
+                return {num_to_index[target - nums[i]], i};
+            }
+            num_to_index[nums[i]] = i;
+        }
+        cout << "input value error" << endl;
+        return {};
+    }
+};
+```
