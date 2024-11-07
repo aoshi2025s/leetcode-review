@@ -16,16 +16,16 @@ nums1.lengthをN, nums2.lengthをKとすると
 class Solution {
 public:
     vector<int> intersection(vector<int>& nums1, vector<int>& nums2) {
-        int intersection_nums[1001] = {};
+        int exist_nums2[1001] = {};
         vector<int> ans;
         unordered_map<int, int> num1_map;
         for(int i = 0; i < nums1.size(); i++) {
             num1_map[nums1[i]] = i;
         }
         for(int i = 0; i < nums2.size(); i++) {
-            if (num1_map.contains(nums2[i]) && intersection_nums[nums2[i]] != 1) {
+            if (num1_map.contains(nums2[i]) && exist_nums2[nums2[i]] != 1) {
                 ans.push_back(nums2[i]);
-                intersection_nums[nums2[i]] = 1;
+                exist_nums2[nums2[i]] = 1;
             }
         }
         return ans;
