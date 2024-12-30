@@ -54,7 +54,7 @@ nums1とnums2をソートさせるという解法があるとわかった</br>
 ## 解法1
 nums1のサイズをN, nums2のサイズをKとするとき
 - 時間計算量: O(N + K)
-- 空間計算量: O(N)
+- 空間計算量: O(N + K)
 ```cpp
 class Solution {
 public:
@@ -74,9 +74,8 @@ public:
 ```
 
 ## 解法2
-nums1のサイズをN, nums2のサイズをKとするとき
-- 時間計算量:
-- 空間計算量:
+- 時間計算量: O(N + K)
+- 空間計算量: O(N + K)
 ```cpp
 class Solution {
 public:
@@ -96,8 +95,36 @@ public:
 ```
 
 ## 解法3
-nums1のサイズをN, nums2のサイズをKとするとき
-- 時間計算量:
-- 空間計算量:
+nums1のサイズをN, nums2のサイズをKとするとき</br>
+- 時間計算量: O(min(N, K) + Nlog(N) + Klong(K))
+- 空間計算量: O(N + K)
 ```cpp
+class Solution {
+public:
+    vector<int> intersection(vector<int>& nums1, vector<int>& nums2) {
+        sort(nums1.begin(), nums1.end());
+        sort(nums2.begin(), nums2.end());
+        vector<int> intersected_nums;
+
+        int i = 0;
+        int j = 0;
+        while (i < nums1.size() && j < nums2.size()) {
+            if (nums1[i] == nums2[j]){
+                if (
+                    intersected_nums.empty() ||
+                    (!intersected_nums.empty() && intersected_nums.back() != nums1[i])
+                    ) {
+                    intersected_nums.push_back(nums1[i]);
+                }
+                i++;
+                j++;
+            } else if (nums1[i] < nums2[j]) {
+                i++;
+            } else {
+                j++;
+            }
+        }
+        return intersected_nums;
+    }
+};
 ```
