@@ -109,18 +109,20 @@ public:
         int i = 0;
         int j = 0;
         while (i < nums1.size() && j < nums2.size()) {
-            if (nums1[i] == nums2[j]){
-                if (
-                    intersected_nums.empty() ||
-                    (!intersected_nums.empty() && intersected_nums.back() != nums1[i])
-                    ) {
-                    intersected_nums.push_back(nums1[i]);
-                }
+            if (nums1[i] < nums2[j]) {
                 i++;
+                continue;
+            }
+            if (nums1[i] > nums2[j]) {
                 j++;
-            } else if (nums1[i] < nums2[j]) {
+                continue;
+            }
+            int common = nums1[i];
+            intersected_nums.push_back(common);
+            while (i < nums1.size() && nums1[i] == common) {
                 i++;
-            } else {
+            }
+            while (j < nums2.size() && nums2[j] == common) {
                 j++;
             }
         }
