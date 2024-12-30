@@ -1,3 +1,5 @@
+# Step 1
+
 - nums1をunordered_setに登録して重複をなくしていく
 - 重複のなくなったnums1に対してnums2の数値と同じものを探す
 - 同じものがあったときにansにpush_backしていく
@@ -31,4 +33,71 @@ public:
         return ans;
     }
 };
+```
+# Step 2
+
+他の方の解法や書き方を参考にした
+
+- 解法1
+nums1とnums2それぞれで重複チェックをしなくても、nums1の重複削除したデータ構造を持っておいて、nums2と一致するか確かめた後にその要素を削除していけば良いことがわかった</br>
+記法として `unordered_set<int> unique_nums1(nums1.begin(), nums1.end());` や `for (int num: nums1)` のような書き方を知った
+
+- 解法2
+`set_intersection`というものがある</br>https://cpprefjp.github.io/reference/algorithm/set_intersection.html</br>
+他の方が使っていた`back_inserter`が全然知らない概念のものだったので理解が難しかった</br>
+また、ソート済みのものを与える必要があるので、`unordered_set`はここでは使えなかった
+
+- 解法3
+nums1とnums2をソートさせるという解法があるとわかった</br>
+例えばnums1またはnums2の要素数が莫大でメモリ上に乗らない場合でも、ソート済みであれば要素を一つずつ取ってきて一致するかどうかを確かめられる
+
+## 解法1
+nums1のサイズをN, nums2のサイズをKとするとき
+- 時間計算量: O(N + K)
+- 空間計算量: O(N)
+```cpp
+class Solution {
+public:
+    vector<int> intersection(vector<int>& nums1, vector<int>& nums2) {
+        unordered_set<int> unique_nums1(nums1.begin(), nums1.end());
+        vector<int> intersected_nums;
+
+        for (int num: nums2) {
+            if (unique_nums1.contains(num)) {
+                intersected_nums.push_back(num);
+                unique_nums1.erase(num);
+            }
+        }
+        return intersected_nums;
+    }
+};
+```
+
+## 解法2
+nums1のサイズをN, nums2のサイズをKとするとき
+- 時間計算量:
+- 空間計算量:
+```cpp
+class Solution {
+public:
+    vector<int> intersection(vector<int>& nums1, vector<int>& nums2) {
+        set<int> unique_nums1(nums1.begin(), nums1.end());
+        set<int> unique_nums2(nums2.begin(), nums2.end());
+        vector<int> intersected_nums;
+
+        set_intersection(
+            unique_nums1.begin(), unique_nums1.end(),
+            unique_nums2.begin(), unique_nums2.end(),
+            inserter(intersected_nums, intersected_nums.end())
+        );
+        return intersected_nums;
+    }
+};
+```
+
+## 解法3
+nums1のサイズをN, nums2のサイズをKとするとき
+- 時間計算量:
+- 空間計算量:
+```cpp
 ```
