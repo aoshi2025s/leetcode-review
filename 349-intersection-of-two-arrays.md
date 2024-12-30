@@ -74,6 +74,7 @@ public:
 ```
 
 ## 解法2
+nums1のサイズをN, nums2のサイズをKとするとき</br>
 - 時間計算量: O(N + K)
 - 空間計算量: O(N + K)
 ```cpp
@@ -124,6 +125,28 @@ public:
             }
             while (j < nums2.size() && nums2[j] == common) {
                 j++;
+            }
+        }
+        return intersected_nums;
+    }
+};
+```
+
+# step 3
+nums1のサイズをN, nums2のサイズをKとするとき
+- 時間計算量: O(N + K)
+- 空間計算量: O(N + K)
+```cpp
+class Solution {
+public:
+    vector<int> intersection(vector<int>& nums1, vector<int>& nums2) {
+        unordered_set<int> unique_nums1(nums1.begin(), nums1.end());
+        vector<int> intersected_nums;
+
+        for (int num: nums2) {
+            if (unique_nums1.contains(num)) {
+                intersected_nums.push_back(num);
+                unique_nums1.erase(num);
             }
         }
         return intersected_nums;
